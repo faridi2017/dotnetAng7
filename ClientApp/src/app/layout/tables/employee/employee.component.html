@@ -1,0 +1,169 @@
+<div class="container row" id="report">
+  <div class="col-md-1"></div>
+  <div class="col-md-11">
+  <div *ngIf="employee" class="row">
+    <div class="col-md-4">
+  
+    <h4><u>{{employee.firstName}} {{employee.lastName}}</u></h4>
+    <p>Employee Id:   {{employee.employeeId}}</p>
+    <p>Contact    :   {{employee.contactNumber}}</p>
+    <p>Email      :   {{employee.email}}</p>
+  </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <div *ngIf="employeeImage">
+            <br>
+            
+            <img *ngIf="employeeImage!=undefined" class="rounded mx-auto d-block" height="100" width="100"  src="data:image/png;base64,{{this.employeeImage.blobData}}" />
+        </div>
+        <div class="imgButton" *ngIf="employeeImage==undefined">
+            <img *ngIf="imgURL" [src]="imgURL" height="100" width="100" class="rounded mx-auto d-block" alt="employee image">
+            <button class="btn btn-default" (click)="upload_image()">&nbsp; Upload&nbsp;</button>
+        </div>
+      </div>
+  </div>
+  <div>
+      <p>Education
+    <button *ngIf="!show_hide_edu" 
+    class="more" (click)="moreLess('edu')"><i class="fa fa-plus" style="color:red;"></i>
+    </button>
+    <button *ngIf="show_hide_edu" 
+    class="more" (click)="moreLess('edu')"><i class="fa fa-minus" style="color:red;"></i>
+    </button><i *ngIf="loadingEdu" class="fa fa-spinner fa-spin"></i></p>
+    <div *ngIf="show_hide_edu">
+        <div *ngIf="education?.length > 0">
+            
+          <div *ngFor="let edu of education;index as i" 
+           style="margin-left: 30px;">
+                <p><strong>{{i+1}}. {{edu.course}}({{edu.stream}}) 
+                </strong> from {{edu.institute}} completed on {{edu.doc | date: 'longDate'}}</p>
+          </div>
+          
+        </div>
+        <div *ngIf="education?.length== 0">
+            <label style="margin-left: 40px; color: black">
+              No record</label>
+          </div>
+       
+      </div>
+  </div>
+  
+  <div>
+      <p>Experience
+          <button *ngIf="!show_hide_exp" 
+          class="more" (click)="moreLess('exp')"><i class="fa fa-plus" style="color:red;"></i>
+          </button>
+          <button *ngIf="show_hide_exp" 
+          class="more" (click)="moreLess('exp')"><i class="fa fa-minus" style="color:red;"></i>
+          </button> <i *ngIf="loadingExp" class="fa fa-spinner fa-spin"></i></p>
+          <div *ngIf="show_hide_exp">
+              <div *ngIf="experience?.length > 0">
+             
+                <div *ngFor="let exp of experience;index as i"
+                 style="margin-left: 30px;">
+                      <p>
+                <strong style="text-transform: capitalize;">{{i+1}}. {{exp.jobTitle}}</strong> at <strong>{{exp.companyName}}</strong>
+                from {{exp.fromDate | date: 'MMMM d, y'}} to {{exp.toDate | date: 'MMMM d, y'}} <br>
+                <strong>Job Description: </strong>  {{exp.jobDescription}} <br>
+              
+                          </p>
+                </div>
+                
+              </div>
+              <div *ngIf="experience?.length== 0">
+                  <label style="margin-left: 40px; color: black">
+                    No record</label>
+                </div>
+             
+            </div>
+  </div>
+  <div>
+      <p>Work info
+          <button *ngIf="!show_hide_work" 
+          class="more" (click)="moreLess('work')"><i class="fa fa-plus" style="color:red;"></i>
+          </button>
+          <button *ngIf="show_hide_work" 
+          class="more" (click)="moreLess('work')"><i class="fa fa-minus" style="color:red;"></i>
+          </button> <i *ngIf="loadingWork" class="fa fa-spinner fa-spin"></i></p>
+          <div *ngIf="show_hide_work">
+              <div *ngIf="workInfo">
+             
+               
+                      <p style="margin-left: 30px;">
+                        <strong>Designation:      </strong>{{workInfo.designation}} <br>
+                        <strong>Department:       </strong>{{workInfo.department}} <br>
+                        <strong>Date of joining:  </strong>{{workInfo.dateOfJoining | date: 'longDate'}} <br>
+                        <strong>Reporting to:     </strong>{{workInfo.reportingTo}} <br>
+                        <strong>Location:         </strong>{{workInfo.seatingLocation}}({{workInfo.location}}) <br>
+                        <strong>Work phone:       </strong>{{workInfo.workPhone}} <br>
+                        <strong>Role:             </strong>{{workInfo.role}} <br>
+                       
+                  </p>
+                
+              </div>
+              <div *ngIf="workInfo==undefined">
+                  <label style="margin-left: 40px; color: black">
+                      No record</label>
+              </div>
+            </div>
+  </div>
+  <div>
+      <p><strong>Personal Info</strong>
+          <button *ngIf="!show_hide_personal" 
+          class="more" (click)="moreLess('personal')"><i class="fa fa-plus" style="color:red;"></i>
+          </button>
+          <button *ngIf="show_hide_personal" 
+          class="more" (click)="moreLess('personal')"><i class="fa fa-minus" style="color:red;"></i>
+          </button> <i *ngIf="loadingPersonal" class="fa fa-spinner fa-spin"></i>
+        </p>
+          <div *ngIf="show_hide_personal">
+              <div *ngIf="personalInfo">
+             
+               
+                      <p style="margin-left: 30px;"><strong>Mobile: </strong> {{personalInfo.mobile}}<br>
+                        <strong>Other email</strong> {{personalInfo.otherEmail}}<br>
+                        <strong>DOB</strong> {{personalInfo.dob | date: 'longDate'}} <br>
+                        <strong>Marital Status</strong>{{personalInfo.maritalStatus}}<br>
+                     <strong>Address</strong>{{personalInfo.address}}
+                       
+                  </p>
+                
+              </div>
+              <div *ngIf="personalInfo==undefined">
+                  <label style="margin-left: 40px; color: black">
+                      No record</label>
+              </div>
+            </div>
+  </div>
+  <div>
+      <p><strong>Summary</strong>
+          <button *ngIf="!show_hide_summary" 
+          class="more" (click)="moreLess('summary')"><i class="fa fa-plus" style="color:red;"></i>
+          </button>
+          <button *ngIf="show_hide_summary" 
+          class="more" (click)="moreLess('summary')"><i class="fa fa-minus" style="color:red;"></i>
+          </button> <i *ngIf="loadingSummary" class="fa fa-spinner fa-spin"></i></p>
+          <div *ngIf="show_hide_summary">
+              <div *ngIf="summary" style="margin-left: 30px;">
+             
+               
+                      <p><strong>{{summary.jobDescription}} </strong><br> {{summary.aboutMe}}<br>
+                        <strong> Entry date:</strong>{{summary.dateOfEntry | date: 'longDate'}} <br>
+                     <strong> Exit date:</strong>{{summary.dateOfExit | date: 'longDate'}} <br>
+                     <strong> Gender:</strong>   {{summary.gender}}<br>
+                     <strong> Passport Number:</strong>{{summary.passportNumber}}<br>
+                     <strong> Nationality:</strong>{{summary.nationality}}<br>
+                     <strong> Expiry date:</strong>   {{summary.passportExpiryDate | date: 'longDate'}}<br>
+                        
+                  </p>
+                
+              </div>
+              <div *ngIf="summary==undefined">
+                  <label style="margin-left: 40px; color: black">
+                      No record</label>
+              </div>
+            </div>
+  </div>
+</div>
+</div><br>
+<!-- <button (click)="makePdf()">Create Pdf</button> -->

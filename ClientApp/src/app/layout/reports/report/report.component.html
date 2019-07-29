@@ -1,0 +1,55 @@
+<div #content class="container" id="report">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }">
+            
+      </ngx-loading>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h3>Reports</h3>
+  <div class="row" >
+      <div class="col-md-1"></div>
+      <div class="col-md-5" class="table-responsive-md" *ngIf="attrition_data">
+          <h5>Attrition matrix</h5>
+          <table class="table table-info table-hover">
+              <thead>
+                  <tr>
+                      <th scope="col">Year</th>
+                      <th scope="col">Actual Employee</th>
+                      <th scope="col">Employee Left</th>
+                      <th scope="col">New Joining</th>
+
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let records of attrition_data">
+                      <td>{{records.theyear}}</td>
+                      <td>{{records.totalEOY}}</td>
+                      <td>{{records.empLeft}}</td>
+                      <td>{{records.newJoinee}}</td>
+                  </tr>
+
+              </tbody>
+          </table>
+      </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5" class="table-responsive-md" *ngIf="experienceCount">
+            <h5>Experience matrix</h5>
+         <label><i *ngIf="loadingExperience" class="fa fa-spinner fa-spin"></i></label>
+            <table class="table table-info table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Experience level</th>
+                    <th scope="col">Number of Employee</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let record of experienceCount">
+                      <td>{{record.experience}}</td>
+                      <td>{{record.expCount}}</td>
+                   
+                  </tr>
+                 
+                </tbody>
+              </table>
+        </div>
+  </div>
+</div><br>
+<button (click)="makePdf()">Create Pdf</button>

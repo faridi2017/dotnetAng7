@@ -1,0 +1,890 @@
+
+<div class="container">
+    <div class="row" style="background-color: #D6DAD8; height: 50px; ">
+        <div class="col">
+       <button class="btn-primary-outline" id="btn-basic"
+        (click)="showForm('basicInfo')">Basic Info
+           <i *ngIf="employeeRes" style="color:green" class="fa fa-check"></i>
+       </button>
+        </div>
+        <div class="col">
+            <button class="btn-primary-outline" id="btn-image"
+             (click)="showForm('profile_image')">Image
+                <i *ngIf="upload_image" style="color:green" class="fa fa-check"></i>
+            </button>
+             </div>
+        <div class="col">
+            <button class="btn-primary-outline" id="btn-edu"
+            (click)="showForm('edu')">Education
+                    <i *ngIf="saveEdu" style="color:green" class="fa fa-check"></i>
+            </button>
+           
+        </div>
+        <!-- <div class="col">
+            <button class="btn-primary-outline" (click)="showForm('sal')">Salary</button>
+        </div> -->
+        <div class="col">
+            <button class="btn-primary-outline" id="btn-work"
+            (click)="showForm('work')">Work
+                    <i *ngIf="saveWork" style="color:green" class="fa fa-check"></i>
+            </button>
+           
+        </div>
+        <div class="col">
+            <button class="btn-primary-outline" id="btn-exp"
+            (click)="showForm('exp')">
+                Experience
+                <i *ngIf="saveExp" style="color:green" class="fa fa-check"></i>
+            </button>
+           
+        </div>
+        <div class="col">
+                <button class="btn-primary-outline" id="btn-psnl"
+                 (click)="showForm('personal')">
+                    Personal
+                    <i *ngIf="savePersonal" style="color:green" class="fa fa-check"></i>
+                </button>
+               
+            </div>
+        <div class="col">
+            <button class="btn-primary-outline" id="btn-smry"
+            (click)="showForm('summary')">Summary
+                <i *ngIf="saveSumm" style="color:green" class="fa fa-check"></i>
+            </button>
+        </div>
+      </div>
+      <div class="container">
+          <!--Basic Info-->
+          <div *ngIf="dt">
+              <form id="login-form"  name="form" 
+              (ngSubmit)="f.form.valid && saveBasicInfo()" #f="ngForm" novalidate>
+                  <div class="row">
+                <div class="col-6" 
+                style="padding-right:20px; border-right: 1px solid #ccc;">
+                <h4>Basic Info 
+                    <label *ngIf="editMode"><i style="color:green" class="fa fa-edit"></i></label></h4>
+                
+                <div class="form-group"> 
+                        <span class="red-star">★</span> 
+                        <label>EmployeeID</label> 
+                       <input type="text" name="employeeId" id="employeeId"
+                       class="form-control" [(ngModel)]="employee.employeeId"
+                       #employeeId="ngModel" 
+                       [ngClass]="{ 'is-invalid': f.submitted && employeeId.invalid }"
+                       required readonly />
+                       <div *ngIf="f.submitted && employeeId.invalid" class="invalid-feedback">
+                            <div *ngIf="employeeId.errors.required">employeeId is required</div>
+                        </div>
+                       <label *ngIf="totalRecords">Last EmployeeID: {{totalRecords}}</label> 
+                    </div>  
+
+               <div class="form-group">  
+                                    <span class="red-star">★</span> 
+                                    <label>Last Name</label> 
+                                   <input type="text" name="lastName" id="lastName"
+                                   class="form-control" [(ngModel)]="employee.lastName"
+                                   #lastName="ngModel" 
+                                   [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
+                                   required />
+                                   <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
+                                        <div *ngIf="lastName.errors.required">Last Name is required</div>
+                                    </div>
+             </div>  
+             <div class="form-group">  
+                   <span class="red-star">★</span> 
+                     <label>Contact Number</label> 
+                     <input type="text" name="contactNumber" id="contactNumber"
+                        class="form-control" [(ngModel)]="employee.contactNumber"
+                         #contactNumber="ngModel" 
+                        [ngClass]="{ 'is-invalid': f.submitted && contactNumber.invalid }"
+                          required />
+                  <div *ngIf="f.submitted && contactNumber.invalid" class="invalid-feedback">
+                   <div *ngIf="contactNumber.errors.required">Contact number is required</div>
+                  </div>
+            </div>  
+
+            </div>
+                 
+                <div class="col-6" >
+                        
+        
+                      <div class="form-group" style="margin-top: 35px"> 
+                            <span class="red-star">★</span>  
+                         <label>First Name</label> 
+                         <input type="text" name="firstName" id="firstName"
+                         class="form-control" [(ngModel)]="employee.firstName"
+                         #firstName="ngModel" 
+                         [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
+                         required />
+                         <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
+                                <div *ngIf="firstName.errors.required">First Name is required</div>
+                            </div>
+                     </div>  
+                     
+                     <div class="form-group">  
+                            <span class="red-star">★</span> 
+                            <label>Email</label> 
+                           <input type="text" name="email" id="email"
+                           class="form-control" [(ngModel)]="employee.email"
+                           #email="ngModel" 
+                           [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+                           required />
+                           <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                                <div *ngIf="email.errors.required">Email is required</div>
+                            </div>
+                        </div>  
+                        <div class="form-group">  
+                            <label>Gender</label> 
+                            <select name="gender" id="gender"
+                            class="form-control" [(ngModel)]="employee.gender"
+                               #gender="ngModel" 
+                               [ngClass]="{ 'is-invalid': f.submitted && gender.invalid }"
+                                required>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                            <div *ngIf="f.submitted && gender.invalid" class="invalid-feedback">
+                                    <div *ngIf="gender.errors.required">Please select any one</div>
+                               </div>
+                        </div> 
+                        <div class="form-group">  
+                                <label>Nick name</label> 
+                               <input type="text" name="nickName" id="nickName"
+                               class="form-control" [(ngModel)]="employee.nickName"
+                               #nickName="ngModel" >
+                            </div>  
+                
+                            
+                           
+                             
+                           
+                          <div class="align-center">  
+                                <button type="submit" class="btn btn-primary" id="save" >save and next</button>  
+                            </div> 
+    
+
+                </div>
+            </div>
+            </form>
+              </div>
+
+            <!--employee education details form-->   
+         <div *ngIf="edu" class="row">
+                    <div class="col-12" 
+                    style="padding-right:20px; border-right: 1px solid #ccc;">
+                    <div>
+                            <h4>Education</h4><button class="more" type="button" 
+                            (click)="addFieldValueEdu()" style="float:right">
+                                    <i class="fa fa-plus" style="color:red;"></i>Add Row</button>
+                        </div>
+                  <!--table of eduction-->
+                  <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>School/Collage/University</th>
+                                <th>Degree/Diploma</th>
+                                <th>Field(s) of Study</th>
+                                <th>Date of Completion</th>
+                                <th>Additional Notes</th>
+                                <th>Interest</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="fieldArrayEducation">
+                            <tr *ngFor="let field of fieldArrayEducation; let i = index">
+                                <td>
+                                    <input [(ngModel)]="field.institute" class="form-control" type="text" name="{{field.institute}}" />
+                                </td>
+                                <td>
+                                        <input [(ngModel)]="field.course" class="form-control" type="text" name="{{field.course}}" />
+                                    </td>
+                                <td>
+                                        
+                                        <input [(ngModel)]="field.stream" class="form-control" type="text" name="{{field.stream}}" />
+                                </td>
+                                <td>
+                                    <input [(ngModel)]="field.doc" class="form-control" type="date" name="{{field.doc}}" />
+                                </td>
+                                <td>
+                                        <input [(ngModel)]="field.notes" class="form-control" type="text" name="{{field.notes}}" />
+                                    </td>
+                            <td>
+                               <input [(ngModel)]="field.interest" class="form-control" type="text" name="{{field.interest}}" />
+                             </td> 
+                                        <td>
+                                    <button class="btn btn-default"  type="button" (click)="deleteFieldValueEdu(i)" [disabled]="true">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input class="form-control" type="text" id="newAttributeInstitute" [(ngModel)]="newAttributeEducation.institute" name="newAttributeCode" />
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text" id="newAttributeCourse" [(ngModel)]="newAttributeEducation.course" name="newAttributeCode" />
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text" id="newAttributeStream" [(ngModel)]="newAttributeEducation.stream" name="newAttributeCode" />
+                                </td>
+                                <td>
+                                        <input class="form-control" type="date" id="newAttributeDoc" [(ngModel)]="newAttributeEducation.doc" name="newAttributeCode" />
+                                    </td>
+                            <td>
+                                <input class="form-control" type="text" id="newAttributeNotes" [(ngModel)]="newAttributeEducation.notes" name="newAttributeCode" />
+                             </td>
+                            <td>
+                             <input class="form-control" type="text" id="newAttributeInterest" [(ngModel)]="newAttributeEducation.interest" name="newAttributeCode" />
+                         </td>
+                                <!-- <td>
+                                    <button class="btn btn-default" type="button" (click)="saveEduactionDetails(i)">save</button>
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <button class="btn btn-primary" type="button" 
+                        (click)="saveEduactionDetails()" >save and next</button>
+                    </div>
+                   
+                </div>
+                     
+                 
+                  </div>
+               <!--employee salary details form-->
+         <div *ngIf="sal" class="row">
+                    <div class="col-6" 
+                    style="padding-right:20px; border-right: 1px solid #ccc;">
+                    <h4>salary</h4>
+                    <div class="form-group">  
+                            <label>Department</label> 
+                            <select>
+                                <option>Sales</option>
+                                <option>IT</option>
+                                <option>HR</option>
+                                <option>Account</option>
+                            
+                            </select> 
+                        </div>  
+                        <div class="form-group">  
+                                <label>Reporting To</label> 
+                                <select>
+                                    <option>Team Lead</option>
+                                    <option>HR</option>
+                                    <option>MD</option>
+                                    <option>Project Manager</option>
+                                
+                                </select> 
+                            </div>  
+                            <div class="form-group">  
+                                    <label>Source of hire</label> 
+                                    <select>
+                                        <option>Refferal</option>
+                                        <option>naukri.com</option>
+                                        <option>jobs,con</option>
+                                       
+                                    
+                                    </select> 
+                                </div>  
+                                <div class="form-group">  
+                                        <label>Seating Location</label> 
+                                       <input type="text">
+                                    </div>  
+    
+                </div>
+                     
+                    <div class="col-6" >
+                            <div class="form-group" style="margin-top: 30px">  
+                                    <label>Location</label> 
+                                    <select>
+                                        <option>New Delhi</option>
+                                        <option>Banglore</option>
+                                        <option>Gurgao</option>
+                                        <option>Noida</option>
+                                    
+                                    </select> 
+                                </div>  
+                                <div class="form-group"> 
+                                        <div class="custom-control custom-radio">
+                                                <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio1">CEO</label>
+                                              </div>
+                                              <div class="custom-control custom-radio">
+                                                <input type="radio" id="customRadio2" name="customRadio" 
+                                                class="custom-control-input" checked>
+                                                <label class="custom-control-label" for="customRadio2">MD</label>
+                                              </div>
+                                       
+                                </div>
+                                <div class="form-group">  
+                                        <label>Date of Joining</label> 
+                                        <input type="date">
+                                    </div> 
+                                    <div class="form-group" style="margin-top: 30px">  
+                                            <label>Employee Status</label> 
+                                            <select>
+                                                <option>Regular</option>
+                                                <option>Part time</option>
+                                               
+                                            
+                                            </select> 
+                                        </div>  
+                                        <div class="form-group" style="margin-top: 30px">  
+                                                <label>Employee Type</label> 
+                                                <select>
+                                                        <option>Regular</option>
+                                                        <option>Part time</option>
+                                                
+                                                </select> 
+                                            </div>   
+                                            <div class="form-group">  
+                                                    <label>Work Phone</label> 
+                                                    <input type="text">
+                                                </div> 
+                                                <div class="form-group">  
+                                                        <label>Extension</label> 
+                                                        <input type="text">
+                                                    </div> 
+                                 <div class="form-group" style="margin-top: 30px">  
+                                     <label>Role</label> 
+                                       <select>
+                                      <option>developer</option>
+                                    <option>Lead</option>
+                                         
+                                     </select> 
+                              </div>  
+                              <div class="align-center">  
+                                    <button type="submit" class="btn btn-primary" id="save" [disabled]="true" >save and next</button>  
+                                </div> 
+        
+    
+                    </div>
+                  </div>
+                  <!--employee peronal inormation-->
+         <div *ngIf="personal" >
+             <form id="formPersonalInfo"  name="form" 
+             (ngSubmit)="f.form.valid && savePersonalInfo()" #f="ngForm" novalidate>
+             <div class="row">
+                        <div class="col-6" 
+                        style="padding-right:20px; border-right: 1px solid #ccc;">
+                        <h4>Personal</h4>
+                        
+                           
+                          <div class="form-group">  
+                             <label>Mobile Phone</label> 
+                           <input type="text" name="mobileNumber" id="mobileNumber"
+                           class="form-control" [(ngModel)]="personalInfo.mobile"
+                           #mobileNumber="ngModel" 
+                           [ngClass]="{ 'is-invalid': f.submitted && mobileNumber.invalid }"
+                           required />
+                           <div *ngIf="f.submitted && mobileNumber.invalid" class="invalid-feedback">
+                                <div *ngIf="mobileNumber.errors.required">mobileNumber is required</div>
+                            </div>
+                          </div>  
+                         
+                          <div class="form-group">  
+                                <label>Other Email</label> 
+                               <input type="text"  name="otherEmail" id="otherEmail"
+                               class="form-control" [(ngModel)]="personalInfo.otherEmail"
+                               #otherEmail="ngModel" >
+                               
+                            </div>  
+                            <div class="form-group">  
+                                    <label>Date Of Birth</label> 
+                                    <input type="date" name="dob" id="dob"
+                                    class="form-control" [(ngModel)]="personalInfo.dob"
+                                    #dob="ngModel" 
+                                    [ngClass]="{ 'is-invalid': f.submitted && dob.invalid }"
+                                    required />
+                                    <div *ngIf="f.submitted && dob.invalid" class="invalid-feedback">
+                                            <div *ngIf="dob.errors.required">DOB is required</div>
+                                        </div>
+                                </div> 
+                            <div class="form-group">
+                             <label>Marital Status</label> 
+                          <div class="custom-control custom-radio">
+                               <input type="radio" name="maritalStatus" id="maritalStatus1"
+                               class="form-control" [(ngModel)]="personalInfo.maritalStatus"
+                               #maritalStatus="ngModel" value="Single"
+                                 [ngClass]="{ 'is-invalid': f.submitted && maritalStatus.invalid }"
+                                required/>
+                            <label class="custom-control-label" for="maritalStatus1">Single</label>
+                            
+                            </div>
+                              <div class="custom-control custom-radio">
+                                <input type="radio" name="maritalStatus" id="maritalStatus2"
+                                class="form-control" [(ngModel)]="personalInfo.maritalStatus"
+                                #maritalStatus="ngModel" value="Married" 
+                                [ngClass]="{ 'is-invalid': f.submitted && maritalStatus.invalid }"
+                                required
+                                 />
+                               <label class="custom-control-label" for="maritalStatus2">Married</label>
+                               <div *ngIf="f.submitted && maritalStatus.invalid" class="invalid-feedback">
+                                    <div *ngIf="maritalStatus.errors.required">Please select either</div>
+                                </div>  
+                            </div>
+                            <!-- <label *ngIf="maritalStatus" style="color:red">Please select either value</label> -->
+                              </div>
+                            
+                                    
+        
+                    </div>
+                         
+                        <div class="col-6" >
+                                <div class="form-group" style="margin-top: 35px">  
+                                        <label>Address</label> 
+                          <textarea style="height:100px" name="address" id="address"
+                       class="form-control" [(ngModel)]="personalInfo.address"
+                          #address="ngModel" 
+                          [ngClass]="{ 'is-invalid': f.submitted && address.invalid }"
+                           required></textarea>
+                    <div *ngIf="f.submitted && address.invalid" class="invalid-feedback">
+                          <div *ngIf="address.errors.required">address is required</div>
+                     </div>
+                                    </div>  
+                                 <div class="form-group">  
+                                         <label>Tags</label> 
+                                       <textarea type="text" style="height:100px"
+                                       name="tags" id="tags"
+                             class="form-control" [(ngModel)]="personalInfo.tags"
+                              #tags="ngModel" 
+                           [ngClass]="{ 'is-invalid': f.submitted && tags.invalid }"
+                           required></textarea>
+                                     <div *ngIf="f.submitted && tags.invalid" class="invalid-feedback">
+                                            <div *ngIf="tags.errors.required">Tags is required</div>
+                                          </div>
+                                 </div> 
+                                    
+                                  <div class="align-center">  
+                                        <button type="submit" class="btn btn-primary" id="save">save and next</button>  
+                                    </div> 
+            
+        
+                        </div>
+                    </div>
+                    </form>
+                      </div>
+               
+
+               <!--employee experience details form-->
+               <div *ngIf="exp" class="row">
+                    <!-- <div class="col-md-12"> -->
+                        <div>
+                    <h4>Experience</h4><button class="more" type="button"
+                    (click)="addFieldValueExp()" style="float:right">
+                            <i class="fa fa-plus" style="color:red;"></i>Add Row</button>
+                </div>
+                    <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Company Name</th>
+                                    <th>Job Title</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Job Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let field of fieldArrayExperience; let i = index">
+                                    <td>
+                                        <input [(ngModel)]="field.companyName" class="form-control" type="text" name="{{field.companyName}}" />
+                                    </td>
+                                    <td>
+                                            <input [(ngModel)]="field.jobTitle" class="form-control" type="text" name="{{field.jobTitle}}" />
+                                        </td>
+                                    <td>
+                                            
+                                        <input [(ngModel)]="field.fromDate" class="form-control" type="date" name="{{field.fromDate}}" />
+                                    </td>
+                                    <td>
+                                        <input [(ngModel)]="field.toDate" class="form-control" type="date" name="{{field.toDate}}" />
+                                    </td>
+                                    <td>
+                                            <input [(ngModel)]="field.jobDescription" class="form-control" type="text" name="{{field.jobDescription}}" />
+                                        </td>
+                                     
+                                            <td>
+                                        <button class="btn btn-default"  type="button" (click)="deleteFieldValueExp(i)" [disabled]="true">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input class="form-control" type="text" id="newAttributeCName" [(ngModel)]="newAttributeExperience.companyName" name="newAttributeCode" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" id="newAttributeJobTitle" [(ngModel)]="newAttributeExperience.jobTitle" name="newAttributeJobTitle" />
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="date" id="newAttributeFromDate" [(ngModel)]="newAttributeExperience.fromDate" name="newAttributeFromDate" />
+                                    </td>
+                                    <td>
+                                            <input class="form-control" type="date" id="newAttributeToDate" [(ngModel)]="newAttributeExperience.toDate" name="newAttributeToDate" />
+                                        </td>
+                                <td>
+                                    <input class="form-control" type="text" id="newAttributeJD" [(ngModel)]="newAttributeExperience.jobDescription" name="newAttributeJD" />
+                                 </td>
+                              
+                                   
+                         
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                                <button class="btn btn-primary" type="button" 
+                                (click)="saveExperience()" >save and next</button>
+                            </div>
+                  </div>
+
+               <!--employee work details form-->
+          <div *ngIf="work" >
+                <form id="formPersonalInfo"  name="form" 
+                (ngSubmit)="f.form.valid && saveWorkInfo()" #f="ngForm" novalidate>
+                <div class="row">
+                   <div class="col-6" 
+                  style="padding-right:20px; border-right: 1px solid #ccc;">
+                  <h4>Work</h4>
+                  <div class="form-group">  
+                     <label>Department</label> 
+                    <select name="department" id="department"
+                    class="form-control" [(ngModel)]="workInfo.department"
+                       #department="ngModel" 
+                       [ngClass]="{ 'is-invalid': f.submitted && department.invalid }"
+                        required>
+                           
+                     <option *ngFor="let dept of departments">{{dept}}</option>
+                        
+                     </select> 
+                     <div *ngIf="f.submitted && department.invalid" class="invalid-feedback">
+                            <div *ngIf="department.errors.required">Please select any one</div>
+                       </div>
+                    </div>  
+                    <div class="form-group">  
+                            <label>Reporting To</label> 
+                            <select name="reportingTo" id="reportingTo"
+                            class="form-control" [(ngModel)]="workInfo.reportingTo"
+                               #reportingTo="ngModel" 
+                               [ngClass]="{ 'is-invalid': f.submitted && reportingTo.invalid }"
+                                required>
+                                    
+                                    <option *ngFor="let reptTo of reportingsTo">{{reptTo}}</option>
+                            </select> 
+                            <div *ngIf="f.submitted && reportingTo.invalid" class="invalid-feedback">
+                                    <div *ngIf="reportingTo.errors.required">Please select any one</div>
+                               </div>
+                        </div>  
+                        <div class="form-group">  
+                                <label>Source of hire</label> 
+                                <select name="sourceOfHire" id="sourceOfHire"
+                                class="form-control" [(ngModel)]="workInfo.sourceOfHire"
+                                   #sourceOfHire="ngModel" 
+                                   [ngClass]="{ 'is-invalid': f.submitted && sourceOfHire.invalid }"
+                                    required>
+                                        
+                                        <option *ngFor="let src of sources">{{src}}</option>
+                                </select> 
+                                <div *ngIf="f.submitted && sourceOfHire.invalid" class="invalid-feedback">
+                                        <div *ngIf="sourceOfHire.errors.required">Please select any one</div>
+                                   </div>
+                            </div>  
+                            <div class="form-group">  
+                                    <label>Seating Location</label> 
+                                   <input type="text" name="seatingLocation" id="seatingLocation"
+                                   class="form-control" [(ngModel)]="workInfo.seatingLocation"
+                                      #seatingLocation="ngModel" 
+                                      [ngClass]="{ 'is-invalid': f.submitted && seatingLocation.invalid }"
+                                       required>
+                                   <div *ngIf="f.submitted && seatingLocation.invalid" class="invalid-feedback">
+                                    <div *ngIf="seatingLocation.errors.required">This is required field</div>
+                                  </div>
+                                </div>  
+
+            </div>
+                 
+            <div class="col-6" >
+                    <div class="form-group" style="margin-top: 30px">  
+                            <label>Location
+                                    <a href="javascript:void(0)" (click)="addLocation()">
+                                            <i class="fa fa-plus"></i>&nbsp;
+                                        </a>
+                                        <input style="height: 30px; margin-bottom: 2px;" type="text" name="newLoc" id="newLoc" *ngIf="addNewLocation"
+                            class="form-control" [(ngModel)]="newLocation"
+                           (change)="locationAdded()"/>
+                            </label> 
+                            <select name="location" id="location" (click)="addLocationArray()"
+                            class="form-control" [(ngModel)]="workInfo.location"
+                               #location="ngModel" 
+                               [ngClass]="{ 'is-invalid': f.submitted && location.invalid }"
+                                required>
+                                    
+                                    <option *ngFor="let loc of locations">{{loc}}</option>
+                            </select> 
+                            
+                            <div *ngIf="f.submitted && location.invalid" class="invalid-feedback">
+                                    <div *ngIf="location.errors.required">Please select any one</div>
+                               </div>
+                        </div>  
+               
+                        <div class="form-group" style="margin-top: 30px">  
+                            <label>Designation
+                                    <a href="javascript:void(0)" (click)="addDesignation()">
+                                            <i class="fa fa-plus"></i>&nbsp;
+                                        </a>
+                                        <input style="height: 30px; margin-bottom: 2px;" type="text" name="newDesig" id="newLoc" *ngIf="addNewDesignation"
+                            class="form-control" [(ngModel)]="newDesignation"
+                           (change)="designationAdded()"/>
+                            </label> 
+                            <select name="designation" id="designation" 
+                            class="form-control" [(ngModel)]="workInfo.designation"
+                               #designation="ngModel" 
+                               [ngClass]="{ 'is-invalid': f.submitted && designation.invalid }"
+                                required>
+                                    
+                                    <option *ngFor="let desig of designations">{{desig}}</option>
+                            </select> 
+                            
+                            <div *ngIf="f.submitted && designation.invalid" class="invalid-feedback">
+                                    <div *ngIf="designation.errors.required">Please select any one</div>
+                               </div>
+                        </div>  
+                   <div class="form-group">  
+                                    <label>Date of Joining</label> 
+                                    <input type="date" name="doj" id="doj"
+                                    class="form-control" [(ngModel)]="workInfo.dateOfJoining"
+                                       #doj="ngModel" 
+                                       [ngClass]="{ 'is-invalid': f.submitted && doj.invalid }"
+                                        required>
+                          <div *ngIf="f.submitted && doj.invalid" class="invalid-feedback">
+                               <div *ngIf="doj.errors.required">Please select a date</div>
+                         </div>
+                    </div> 
+                                <div class="form-group" style="margin-top: 30px">  
+                                        <label>Employee Status</label> 
+                                        <select name="empStatus" id="empStatus"
+                                        class="form-control" [(ngModel)]="workInfo.employeeStatus"
+                                           #empStatus="ngModel" 
+                                           [ngClass]="{ 'is-invalid': f.submitted && empStatus.invalid }"
+                                            required>
+                                                
+                                                <option *ngFor="let sts of statuses">{{sts}}</option>
+                                        </select> 
+                                        <div *ngIf="f.submitted && empStatus.invalid" class="invalid-feedback">
+                                                <div *ngIf="empStatus.errors.required">Please select any one</div>
+                                           </div>
+                                    </div>  
+                                    <div class="form-group" style="margin-top: 30px">  
+                                            <label>Employee Type</label> 
+                                            <select name="empType" id="empType"
+                                            class="form-control" [(ngModel)]="workInfo.employeeType"
+                                               #empType="ngModel" 
+                                               [ngClass]="{ 'is-invalid': f.submitted && empType.invalid }"
+                                                required>
+                                                    
+                                                    <option *ngFor="let empT of empTypes">{{empT}}</option>
+                                            </select> 
+                                            <div *ngIf="f.submitted && empType.invalid" class="invalid-feedback">
+                                                    <div *ngIf="empType.errors.required">Please select any one</div>
+                                               </div>
+                                        </div>  
+                                        <div class="form-group">  
+                                                <label>Work Phone</label> 
+                                    <input type="text" name="workphone" id="workphone"
+                                    class="form-control" [(ngModel)]="workInfo.workPhone"
+                                   #workphone="ngModel" 
+                                       [ngClass]="{ 'is-invalid': f.submitted && workphone.invalid }"
+                                         required>
+                                 <div *ngIf="f.submitted && workphone.invalid" class="invalid-feedback">
+                                    <div *ngIf="workphone.errors.required">This is required field</div>
+                                  </div>
+                                            </div> 
+                                 <div class="form-group">  
+                                      <label>Extension</label> 
+                                        <input type="text" name="extension" id="extension"
+                                             class="form-control" [(ngModel)]="workInfo.extension"
+                                            #extension="ngModel" 
+                                                [ngClass]="{ 'is-invalid': f.submitted && extension.invalid }"
+                                                  required>
+                                <div *ngIf="f.submitted && extension.invalid" class="invalid-feedback">
+                                   <div *ngIf="extension.errors.required">This is required field</div>
+                                </div>
+                                
+                                  </div> 
+                             <div class="form-group" style="margin-top: 30px">  
+                                  <label>Role</label> 
+                                     <select name="role" id="role"
+                                              class="form-control" [(ngModel)]="workInfo.role"
+                                              #role="ngModel" 
+                                          [ngClass]="{ 'is-invalid': f.submitted && role.invalid }"
+                                            required>
+                                                                
+                                  <option *ngFor="let rl of roles">{{rl}}</option>
+                              </select> 
+                              <div *ngIf="f.submitted && role.invalid" class="invalid-feedback">
+                                 <div *ngIf="role.errors.required">Please select any one</div>
+                               </div>
+                            </div>  
+                          <div class="align-center">  
+                                <button type="submit" class="btn btn-primary" id="save" >save and next</button>  
+                            </div> 
+    
+
+                </div>
+            </div>
+                </form>
+              </div>
+
+               <!--employee Address form-->
+               <div *ngIf="summary_details">
+                    <form id="formSummary"  name="form" 
+             (ngSubmit)="f.form.valid && saveSummary()" #f="ngForm" novalidate>
+             <div class="row">
+                    <div class="col-6" 
+                    style="padding-right:20px; border-right: 1px solid #ccc;">
+                    <h4>Summary</h4>
+                    <div class="form-group">  
+                            <label>Job Description</label> 
+                          <input type="text" name="jobDescription" id="jobDescription"
+                          class="form-control" [(ngModel)]="summary.jobDescription"
+                          #jobDescription="ngModel" 
+                          [ngClass]="{ 'is-invalid': f.submitted && jobDescription.invalid }"
+                          required />
+                          <div *ngIf="f.submitted && jobDescription.invalid" class="invalid-feedback">
+                               <div *ngIf="jobDescription.errors.required">Job description is required</div>
+                           </div>
+                         </div>  
+                         <div class="form-group" style="margin-top: 35px">  
+                                <label>Ask me about/Expertise</label> 
+                  <textarea style="height:100px" name="expertise" id="expertise"
+               class="form-control" [(ngModel)]="summary.expertise"
+                  #expertise="ngModel" 
+                  [ngClass]="{ 'is-invalid': f.submitted && expertise.invalid }"
+                   required></textarea>
+            <div *ngIf="f.submitted && expertise.invalid" class="invalid-feedback">
+                  <div *ngIf="expertise.errors.required">This field is required</div>
+             </div>
+                            </div> 
+                            <div class="form-group">  
+                                    <label>Passport Number</label> 
+                                  <input type="text" name="passportNumber" id="passportNumber"
+                                  class="form-control" [(ngModel)]="summary.passportNumber"
+                                  #passportNumber="ngModel" 
+                                  [ngClass]="{ 'is-invalid': f.submitted && passportNumber.invalid }"
+                                  required />
+                                  <div *ngIf="f.submitted && passportNumber.invalid" class="invalid-feedback">
+                                       <div *ngIf="passportNumber.errors.required">Passport Number is required</div>
+                                   </div>
+                                 </div>  
+                                 <div class="form-group">  
+                                        <label>Nationality</label> 
+                                      <input type="text" name="nationality" id="nationality"
+                                      class="form-control" [(ngModel)]="summary.nationality"
+                                      #nationality="ngModel" 
+                                      [ngClass]="{ 'is-invalid': f.submitted && nationality.invalid }"
+                                      required />
+                                      <div *ngIf="f.submitted && nationality.invalid" class="invalid-feedback">
+                                           <div *ngIf="nationality.errors.required">This field is required</div>
+                                       </div>
+                                     </div>  
+                         <div class="form-group">  
+                          <label>Passport expiry date</label> 
+                             <input type="date" name="passportExpiryDate" id="passportExpiryDate"
+                             class="form-control" [(ngModel)]="summary.passportExpiryDate"
+                             #passportExpiryDate="ngModel" 
+                            [ngClass]="{ 'is-invalid': f.submitted && passportExpiryDate.invalid }"
+                          required/>
+                            <div *ngIf="f.submitted && passportExpiryDate.invalid" class="invalid-feedback">
+                            <div *ngIf="passportExpiryDate.errors.required">This field is required</div>
+                         </div>
+                     </div> 
+                  
+                </div>
+                     
+                    <div class="col-6" >
+                            <div class="form-group" style="margin-top: 35px">  
+                                    <label>About me</label> 
+                      <textarea style="height:100px" name="aboutMe" id="aboutMe"
+                   class="form-control" [(ngModel)]="summary.aboutMe"
+                      #aboutMe="ngModel" 
+                      [ngClass]="{ 'is-invalid': f.submitted && aboutMe.invalid }"
+                       required></textarea>
+                <div *ngIf="f.submitted && aboutMe.invalid" class="invalid-feedback">
+                      <div *ngIf="aboutMe.errors.required">This field is required</div>
+                 </div>
+                                </div>  
+                 <div class="form-group">  
+                      <label>Date of Entry</label> 
+                      <input type="date" name="entryDate" id="entryDate"
+                       class="form-control" [(ngModel)]="summary.dateOfEntry"
+                        #entryDate="ngModel" 
+                     [ngClass]="{ 'is-invalid': f.submitted && entryDate.invalid }"
+                     required/>
+                    <div *ngIf="f.submitted && entryDate.invalid" class="invalid-feedback">
+                     <div *ngIf="entryDate.errors.required">This field is required</div>
+                     </div>
+                                    </div> 
+                     <div class="form-group">  
+                         <label>Date of Exit</label> 
+                          <input type="date" name="exitDate" id="exitDate"
+                          class="form-control" [(ngModel)]="summary.dateOfExit"
+                             #exitDate="ngModel" 
+                             [ngClass]="{ 'is-invalid': f.submitted && exitDate.invalid }"
+                              required/>
+                              <div *ngIf="f.submitted && exitDate.invalid" class="invalid-feedback">
+                                    <div *ngIf="exitDate.errors.required">This field is required</div>
+                               </div>
+                     </div> 
+                     <div class="form-group">  
+                        <label>Gender</label> 
+                        <select name="gender" id="gender"
+                        class="form-control" [(ngModel)]="summary.gender"
+                           #gender="ngModel" 
+                           [ngClass]="{ 'is-invalid': f.submitted && gender.invalid }"
+                            required>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                        <div *ngIf="f.submitted && gender.invalid" class="invalid-feedback">
+                                <div *ngIf="gender.errors.required">Please select any one</div>
+                           </div>
+                    </div> 
+                                    
+                                     <div class="align-center">  
+                                    <button type="submit" class="btn btn-primary" id="save" >save and next</button>  
+                                </div> 
+        
+    
+                    </div>
+                </div>
+                   </form><br>
+                   <!-- <button  class="btn btn-success" (click)="submitAll()" >Submit</button>  -->
+                  </div>
+               <!--employee details form-->
+               <div *ngIf="profile_image" class="container">
+                   <br><br>
+                   <h4>Upload Image</h4>
+                   <!--<input style="display: none"
+                          type="file" (change)="onFileChanged($event)"
+                          #fileInput>
+                   <button (click)="fileInput.click()">Select File</button>&nbsp;
+                   <button (click)="onUpload()" class="btn btn-primary" [disabled]="btnDisabled">Upload!</button><br>
+                   <img [src]="imgURL" height="200" *ngIf="imgURL">
+                   <br /><br />-->
+                   <div>
+                       <div>
+                           <label for="filePicker">Select a file:</label><br>
+                           <input type="file" id="filePicker" (change)="handleFileSelect($event)" style="width:500px">
+                           <div *ngIf="maxsize <= 1000000">
+                               <img *ngIf="base64textString" src="data:image/png;base64,{{base64textString}}" />
+                               <button (click)="onUploadImage()" class="btn btn-primary">Upload!</button><br>
+                           </div>
+                           <div *ngIf="maxsize > 1000000">
+                               <label>File size more than 1 MB</label>
+                           </div>
+                       </div>
+                       <br>
+                      
+                   </div>
+
+
+
+               </div>
+    </div>
+</div>

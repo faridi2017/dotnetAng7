@@ -1,0 +1,86 @@
+<div class="containe">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+    <p>All tables</p><br>
+    <div class="row" *ngIf="employees">
+        <div class="col-8">
+            <table style="font-size:80%" id="example" class="table table-striped table-bordered table-sm row-border hover"
+                   datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <thead style="background: #87ceeb;">
+                    <tr>
+
+                        <th>EmployeeId</th>
+                        <th>First name</th>
+                        <th>Last Name</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <!-- <th>Assigned To User</th>-->
+                        <th></th>
+                        <th></th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let emp of employees; let i = index" [attr.data-index]="i">
+
+                        <td (click)="get_employee_details(i)" style="cursor:pointer;">{{emp.employeeId}}</td>
+                        <td (click)="get_employee_details(i)" style="cursor:pointer;">{{emp.firstName}}</td>
+                        <td (click)="get_employee_details(i)" style="cursor:pointer;">{{emp.lastName}}</td>
+                        <td (click)="get_employee_details(i)" style="cursor:pointer;">{{emp.gender}}</td>
+                        <td (click)="get_employee_details(i)" style="cursor:pointer;">{{emp.email}}</td>
+                        <td (click)="get_employee_details(i)" style="cursor:pointer;">{{emp.contactNumber}}</td>
+                        <td>
+                            <button id="modalTrigger" type="button" class="btn-delete-edit" (click)="openModalDialog(i)"
+                                    data-toggle="modal" data-target="#exampleModal">
+                                <i style="color:red" class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn-delete-edit" (click)="edit_employee(i)">
+                                <i style="color:green" class="fa fa-edit"></i>
+                            </button>
+                        </td>
+
+                        <!--<td >{{myList.cmpctLabel}}</td>-->
+
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+<!-- modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+    <!-- modal-dialog -->
+    <div class="modal-dialog" role="document">
+        <!-- modal-content -->
+        <div class="modal-content">
+            <!-- modal-header -->
+            <div class="modal-header">
+                <h3 style="color: red">DANGER ZONE</h3>
+                <button type="button" class="close" aria-label="Close" (click)="closeModalDialog()"><span aria-hidden="true">&times;</span></button>
+                <!-- <h4 class="modal-title">Login</h4> -->
+            </div>
+
+            <!-- modal-body -->
+            <div class="modal-body">
+                <div *ngIf="employee">
+                    <h4><u>{{employee.firstName}} {{employee.lastName}}</u></h4>
+                    <p>Employee Id:   {{employee.employeeId}}</p>
+                    <p>Contact    :   {{employee.contactNumber}}</p>
+                    <p>Email      :   {{employee.email}}</p>
+                </div>
+            </div>
+
+            <!-- modal-footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="delete_employee()">Delete</button>
+                <button type="button" class="btn btn-default" (click)="closeModalDialog()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

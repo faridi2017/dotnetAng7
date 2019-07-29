@@ -1,0 +1,262 @@
+<div [@routerTransition] *ngIf="loggedin">
+        <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }">
+            
+        </ngx-loading>
+    <h2 class="text-muted">Dashboard <small>Report Overview</small></h2>
+  
+<div class="row">
+    <div class="col-md-3 col-xl-3">
+        <div class="card bg-c-blue order-card">
+            <div class="card-block" *ngIf="totalCount">
+
+                <p class="m-b-0">
+                    Total Emplyoees (A)<span class="f-right">
+                        {{totalCount}}
+                    </span>
+                </p>
+                <a href="javascript:void(0)" (click)="gotoTableModule()" class="btn btn-success">Go</a>
+            </div>
+        </div>
+        <div class="card bg-c-green order-card">
+            <div class="card-block">
+
+                <p class="m-b-0">Employee Abroad<span class="f-right">40</span></p>
+                <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+        
+    <div class="col-md-6 col-xl-6">
+        <div class="wrapper" *ngIf="doughnutChartData">
+            <div class="cube">
+                <div class="ocube front" *ngIf="barChartData">
+                    <canvas baseChart
+                            height="300px"
+                            [datasets]="barChartData"
+                            [chartType]="barChartType"></canvas>
+                </div>
+
+
+                <div class="ocube back" *ngIf="doughnutChartData">
+                    <canvas baseChart
+                            height="300px"
+                            [data]="doughnutChartData"
+                            [labels]="doughnutChartLabels"
+                            [colors]="donutColors"
+                            [options]="doughnutChartOptions"
+                            [chartType]="doughnutChartType"></canvas>
+                </div>
+                <div class="ocube left" *ngIf="lineChartData">
+                    <canvas baseChart
+                            height="300px"
+                            [datasets]="lineChartData"
+                            [colors]="lineChartColors"
+                            [chartType]="lineChartType"></canvas>
+                </div>
+                <div class="ocube right" *ngIf="pi_chart_list">
+                    <canvas baseChart
+                            height="300px"
+                            [data]="pi_chart_list"
+                            [options]="pieChartOptions"
+                            [labels]="pieChartLabels"
+                            [chartType]="pieChartType"></canvas>
+                </div>
+
+                <i class="front"></i>
+                <i class="back"></i>
+                <i class="left"></i>
+                <i class="right"></i>
+            </div>
+        </div>
+    </div>
+        
+             
+        <div class="col-md-3 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+
+                    <p class="m-b-0">New Employee<span class="f-right">10</span></p>
+                    <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            <div class="card bg-c-pink1 order-card">
+                <div class="card-block" *ngIf="doughnutChartData">
+                    <!-- <h6 class="m-b-20">Orders Received</h6>
+            <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>486</span></h2> -->
+                    <p class="m-b-0 headcount" (click)="gotoTableModule()">
+                        Headcounts.
+                        <span class="f-right"></span>
+
+                    </p>
+                    <div class="row">
+                        <div class="col-6" style="border-right: 1px solid #ccc;">
+                            <p class="m-b-0">
+                                M<span class="f-right">
+                                    {{doughnutChartData[0]}}
+                                    <i class="fa fa-male" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="m-b-0">
+                                F<span class="f-right">
+                                    {{doughnutChartData[1]}}
+                                    <i class="fa fa-female" style="color:#FF69B4"
+                                       aria-hidden="true"></i>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- <p class="m-b-0">F<span class="f-right">{{doughnutChartData[1]}}
+                <i class="fa fa-female" aria-hidden="true" style="color:#FF69B4"></i>
+            </span></p> -->
+
+                </div>
+            </div>
+        </div>
+	</div><br><br>
+<!-- Charts -->
+<div class="row">
+    <div class="col col-sm-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                Attrition  <a href="javascript:void(0)" (click)="gotoReportModule()" class="btn btn-success">Go</a>
+            </div>
+            <div class="card-body" *ngIf="barChartData">
+                <canvas baseChart 
+                height="100px" 
+                [datasets]="barChartData" 
+                [labels]="barChartLabels"
+                 [options]="barChartOptions" 
+                 [legend]="barChartLegend" 
+                 [chartType]="barChartType" 
+                 (chartHover)="chartHovered($event)" 
+                 (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+           
+        </div>
+    </div>
+    <div class="col col-sm-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                Male/Female ratio
+            </div>
+            <div class="card-body" *ngIf="doughnutChartData">
+                <canvas baseChart 
+                height="100px" 
+                 [data]="doughnutChartData" 
+                 [colors]="donutColors"
+                 [options]="doughnutChartOptions"
+                 [labels]="doughnutChartLabels"
+                  [chartType]="doughnutChartType"
+                   (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col col-sm-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                Employee Status
+            </div>
+      
+        <div class="card-body" *ngIf="lineChartData">
+                <canvas baseChart 
+                height="100px" 
+                [datasets]="lineChartData" 
+                [labels]="lineChartLabels" 
+                [options]="lineChartOptions" 
+                [colors]="lineChartColors" 
+                [legend]="lineChartLegend" 
+                [chartType]="lineChartType" 
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col col-sm-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                Experience
+            </div>
+            <div class="card-body" *ngIf="pi_chart_list">
+                <canvas baseChart 
+                height="100px" 
+                [data]="pi_chart_list" 
+                [options]="pieChartOptions"
+                [labels]="pieChartLabels" 
+                [chartType]="pieChartType" 
+                (chartHover)="chartHovered($event)" 
+                (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Employee at clients</h6>
+            <h4 class="text-right"><i class="fa fa-users f-left"></i><span>36</span></h4>
+                  
+                    <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Employee Leaves</h6>
+                    <h4 class="text-right"><i class="fa fa-rocket f-left"></i><span>86</span></h4>
+                    <!-- <p>some comments</p> -->
+                    <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Headcounts (A)</h6>
+                    <div class="row" *ngIf="doughnutChartData">
+                        <div class="col-6">
+                         <p style="line-height : 20px;">M: {{doughnutChartData[0]}}</p>
+                        
+                     <p style="line-height : 20px;"><i class="fa fa-male" aria-hidden="true" style="color:black"></i>
+                         {{((doughnutChartData[0]/(doughnutChartData[0]+doughnutChartData[1]))*100).toFixed(2)}} %</p>
+                            </div>
+                        <div class="col-6">
+                                <p style="line-height : 20px;">F: {{doughnutChartData[1]}}</p>
+                                <p style="line-height : 20px;"><i class="fa fa-female" aria-hidden="true" style="color:#FF69B4"></i>
+                                    {{((doughnutChartData[1]/(doughnutChartData[0]+doughnutChartData[1]))*100).toFixed(2)}}%</p>
+                            </div>
+                    </div>
+                   
+                   
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Employee Left</h6>
+                    <h4 class="text-right"><i class="fa fa-credit-card f-left"></i><span>26</span></h4>
+                   
+                    <a href="javascript:void(0)" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<br><br>
+<!-- <a href="javascript:void(0)" (click)="multiple_api_request()" class="btn btn-success">Multiple api in one call</a> -->

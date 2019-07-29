@@ -1,0 +1,40 @@
+<div class="login-page" [@routerTransition]>
+    <p>hrms@cit.in/admin</p>
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
+            <h1>HRMS Comm-IT</h1>
+            <form id="login-form"  name="form" 
+            (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate >
+                <h3 class="text-center" style="color: yellowgreen">Login</h3><br><br>
+                <div class="form-group">
+                    <label for="username" class="text-info">Username:</label><br>
+                    <input type="text" name="username" id="username"
+                     class="form-control" [(ngModel)]="user_name"
+                     #username="ngModel" 
+                     [ngClass]="{ 'is-invalid': f.submitted && username.invalid }"
+                     required />
+                     <div *ngIf="f.submitted && username.invalid" class="invalid-feedback">
+                      <div *ngIf="username.errors.required">username is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="text-info">Password:</label><br>
+                    <input type="password" name="password" id="password" 
+                    class="form-control" [(ngModel)]="password" #passwordc="ngModel" 
+                     [ngClass]="{ 'is-invalid': f.submitted && passwordc.invalid }"
+                     required />
+                    <div *ngIf="f.submitted && passwordc.invalid" class="invalid-feedback">
+                      <div *ngIf="passwordc.errors.required">password is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-info btn-md">submit <i *ngIf="loading" class="fa fa-spinner fa-spin"></i></button>
+                  
+                </div>
+            
+            </form>
+         
+        </div>
+    </div><br><br>
+</div>
